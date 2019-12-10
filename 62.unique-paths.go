@@ -1,0 +1,27 @@
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(uniquePaths(3, 2))
+	fmt.Println(uniquePaths(7, 3))
+}
+
+func uniquePaths(m int, n int) int {
+	dp := make([][]int, n)
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([]int, m)
+	}
+	for i := 0; i < len(dp[0]); i++ {
+		dp[0][i] = 1
+	}
+	for i := 1; i < len(dp); i++ {
+		dp[i][0] = 1
+	}
+	for i := 1; i < len(dp); i++ {
+		for j := 1; j < len(dp[0]); j++ {
+			dp[i][j] = dp[i-1][j] + dp[i][j-1]
+		}
+	}
+	return dp[n-1][m-1]
+}
